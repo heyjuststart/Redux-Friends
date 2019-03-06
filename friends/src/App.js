@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginForm from './components/LoginForm';
 import './App.css';
 import { connect } from 'react-redux';
@@ -11,13 +11,13 @@ import {
 } from './actions';
 
 export const App = props => {
-  // const [initialized, setInitialized] = useState(false);
-  // useEffect(() => {
-  //   if (!initialized) {
-  //     props.fetchFriends();
-  //     setInitialized(true);
-  //   }
-  // });
+  const [initialized, setInitialized] = useState(false);
+  useEffect(() => {
+    if (props.loggedIn && !initialized) {
+      props.fetchFriends();
+      setInitialized(true);
+    }
+  });
   if(!props.loggedIn) {
     return (
       <div className="App">

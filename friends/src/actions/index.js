@@ -22,10 +22,10 @@ export const login = credentials => dispatch => {
     });
 };
 
-export const fetchFriends = () => dispatch => {
+export const fetchFriends = () => (dispatch, getState) => {
   dispatch({ type: FETCH_FRIENDS });
   axios
-    .get('http://localhost:5000/friends')
+    .get('http://localhost:5000/api/friends', { 'headers': { 'authorization': getState().friends.token }})
     .then(({ data }) =>
       dispatch({ type: FETCH_FRIENDS_SUCCESS, payload: data })
     )
