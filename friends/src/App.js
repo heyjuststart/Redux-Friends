@@ -9,6 +9,8 @@ import {
   deleteFriend,
   login
 } from './actions';
+import Friend from './components/Friend';
+import FriendForm from './components/FriendForm';
 
 export const App = props => {
   const [initialized, setInitialized] = useState(false);
@@ -21,12 +23,21 @@ export const App = props => {
   if(!props.loggedIn) {
     return (
       <div className="App">
-        <h1>Not Logged In Hello</h1>
+        <h1>Not Logged In :(</h1>
         <LoginForm onSubmit={props.login}/>
       </div>
     );
   } else {
-    return <h1>Logged In Hello</h1>;
+    return (
+      <div className="App">
+        <h1>Logged In :)</h1>
+        { props.fetchingFriends && <h3>Loading Friends...</h3> }
+        <>
+        { props.friends.map(f => <Friend friend={f} key={f.id}/>) }
+        </>
+        <FriendForm onSubmit={props.saveFriend} />
+      </div>
+    );
   }
 };
 

@@ -13,37 +13,43 @@ let friends = [
     id: 1,
     name: 'Ben',
     age: 30,
-    email: 'ben@lambdaschool.com'
+    email: 'ben@lambdaschool.com',
+    gender: 'm'
   },
   {
     id: 2,
     name: 'Austen',
     age: 45,
-    email: 'austen@lambdaschool.com'
+    email: 'austen@lambdaschool.com',
+    gender: 'm'
   },
   {
     id: 3,
     name: 'Ryan',
     age: 15,
-    email: 'ryan@lambdaschool.com'
+    email: 'ryan@lambdaschool.com',
+    gender: 'm'
   },
   {
     id: 4,
     name: 'Dustin',
     age: 25,
-    email: 'D-munny@lambdaschool.com'
+    email: 'D-munny@lambdaschool.com',
+    gender: 'm'
   },
   {
     id: 5,
     name: 'Sean',
     age: 35,
-    email: 'sean@lambdaschool.com'
+    email: 'sean@lambdaschool.com',
+    gender: 'm'
   },
   {
     id: 6,
     name: 'Michelle',
     age: 67,
-    email: 'michelle@gmail.com'
+    email: 'michelle@gmail.com',
+    gender: 'm'
   }
 ];
 

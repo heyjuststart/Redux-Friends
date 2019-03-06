@@ -14,28 +14,32 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const login = credentials => dispatch => {
   dispatch({ type: LOGIN });
-  axios
-    .post('http://localhost:5000/api/login', credentials)
-    .then(res => {
-      console.log(res);
-      dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
-    });
+  axios.post('http://localhost:5000/api/login', credentials).then(res => {
+    console.log(res);
+    dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+  });
 };
 
 export const fetchFriends = () => (dispatch, getState) => {
   dispatch({ type: FETCH_FRIENDS });
   axios
-    .get('http://localhost:5000/api/friends', { 'headers': { 'authorization': getState().friends.token }})
+    .get('http://localhost:5000/api/friends', {
+      headers: { authorization: getState().friends.token }
+    })
     .then(({ data }) =>
       dispatch({ type: FETCH_FRIENDS_SUCCESS, payload: data })
     )
     .catch(err => dispatch({ type: REQUEST_ERROR, payload: err }));
 };
 
-export const saveFriend = friend => dispatch => {
+export const saveFriend = friend => (dispatch, getState) => {
   dispatch({ type: SAVE_FRIEND });
   axios
-    .post('http://localhost:5000/friends', friend)
+    .post(
+      'http://localhost:5000/api/friends',
+      friend,
+      { headers: { authorization: getState().friends.token } }
+    )
     .then(({ data }) => dispatch({ type: SAVE_FRIEND_SUCCESS, payload: data }))
     .catch(err => dispatch({ type: REQUEST_ERROR, payload: err }));
 };
