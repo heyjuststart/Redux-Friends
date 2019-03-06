@@ -16,7 +16,9 @@ const initialState = {
   updatingFriend: false,
   deletingFriend: false,
   friends: [],
-  error: null
+  error: null,
+  loggedIn: false,
+  token: null
 };
 
 export const friendsReducer = (state = initialState, action) => {

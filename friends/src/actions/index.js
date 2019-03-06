@@ -9,6 +9,18 @@ export const UPDATE_FRIEND = 'UPDATE_FRIEND';
 export const UPDATE_FRIEND_SUCCESS = 'UPDATE_FRIEND_SUCCESS';
 export const DELETE_FRIEND = 'DELETE_FRIEND';
 export const DELETE_FRIEND_SUCCESS = 'DELETE_FRIEND_SUCCESS';
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+export const login = credentials => dispatch => {
+  dispatch({ type: LOGIN });
+  axios
+    .post('http://localhost:5000/api/login', credentials)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+    });
+};
 
 export const fetchFriends = () => dispatch => {
   dispatch({ type: FETCH_FRIENDS });
@@ -32,7 +44,9 @@ export const updateFriend = friend => dispatch => {
   dispatch({ type: UPDATE_FRIEND });
   axios
     .put(`http://localhost:5000/friends/${friend.id}`, friend)
-    .then(({ data }) => dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: data }))
+    .then(({ data }) =>
+      dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: data })
+    )
     .catch(err => dispatch({ type: REQUEST_ERROR, payload: err }));
 };
 
@@ -40,6 +54,8 @@ export const deleteFriend = friend => dispatch => {
   dispatch({ type: DELETE_FRIEND });
   axios
     .delete(`http://localhost:5000/friends/${friend.id}`)
-    .then(({ data }) => dispatch({ type: DELETE_FRIEND_SUCCESS, payload: data }))
+    .then(({ data }) =>
+      dispatch({ type: DELETE_FRIEND_SUCCESS, payload: data })
+    )
     .catch(err => dispatch({ type: REQUEST_ERROR, payload: err }));
 };
