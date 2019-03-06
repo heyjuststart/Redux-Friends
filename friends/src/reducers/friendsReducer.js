@@ -12,19 +12,33 @@ import {
 
 const initialState = {
   fetchingFriends: false,
-  friendsFetched: false,
-  friendsSaved: false,
-  savingFriends: false,
+  savingFriend: false,
   updatingFriend: false,
-  friendUpdated: false,
   deletingFriend: false,
-  friendDeleted: false,
   friends: [],
   error: null
 };
 
 export const friendsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_FRIENDS:
+      return { ...state, fetchingFriends: true };
+    case FETCH_FRIENDS_SUCCESS:
+      return { ...state, friends: action.payload, fetchingFriends: false };
+    case SAVE_FRIEND:
+      return { ...state, savingFriend: true };
+    case SAVE_FRIEND_SUCCESS:
+      return { ...state, friends: action.payload, savingFriend: false };
+    case UPDATE_FRIEND:
+      return { ...state, updatingFriend: true };
+    case UPDATE_FRIEND_SUCCESS:
+      return { ...state, friends: action.payload, updatingFriend: false };
+    case DELETE_FRIEND:
+      return { ...state, deletingFriend: true };
+    case DELETE_FRIEND_SUCCESS:
+      return { ...state, friends: action.payload, deletingFriend: false };
+    case REQUEST_ERROR:
+      return { ...initialState, friends: state.friends, error: action.payload };
     default:
       return state;
   }
