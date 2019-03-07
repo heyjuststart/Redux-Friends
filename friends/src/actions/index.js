@@ -71,7 +71,7 @@ export const saveFriend = friend => dispatch => {
 export const updateFriend = friend => dispatch => {
   dispatch({ type: UPDATE_FRIEND });
   return axiosWithAuth()
-    .put(`http://localhost:5000/friends/${friend.id}`, friend)
+    .put(`http://localhost:5000/api/friends/${friend.id}`, friend)
     .then(({ data }) =>
       dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: data })
     )
@@ -81,7 +81,7 @@ export const updateFriend = friend => dispatch => {
 export const deleteFriend = friend => dispatch => {
   dispatch({ type: DELETE_FRIEND });
   return axiosWithAuth()
-    .delete(`http://localhost:5000/friends/${friend.id}`)
+    .delete(`http://localhost:5000/api/friends/${friend.id}`)
     .then(({ data }) =>
       dispatch({ type: DELETE_FRIEND_SUCCESS, payload: data })
     )

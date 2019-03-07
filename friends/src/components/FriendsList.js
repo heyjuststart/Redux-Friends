@@ -6,7 +6,8 @@ const FriendsList = ({
   fetchFriends,
   friends,
   fetchingFriends,
-  saveFriend
+  saveFriend,
+  deleteFriend
 }) => {
   useEffect(() => {
     fetchFriends();
@@ -20,7 +21,7 @@ const FriendsList = ({
       ) : (
         <>
           {friends.map(f => (
-            <Friend friend={f} key={f.id} />
+            <Friend friend={f} key={f.id} deleteFriend={deleteFriend} />
           ))}
         </>
       )}

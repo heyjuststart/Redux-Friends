@@ -60,6 +60,7 @@ export const App = props => {
         fetchFriends={props.fetchFriends}
         saveFriend={props.saveFriend}
         loggedIn={props.loggedIn}
+        deleteFriend={props.deleteFriend}
       />
       <Route
         exact
