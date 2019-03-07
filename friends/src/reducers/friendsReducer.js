@@ -9,11 +9,13 @@ import {
   DELETE_FRIEND,
   DELETE_FRIEND_SUCCESS,
   LOGIN,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOAD_TOKEN,
+  LOG_OUT
 } from '../actions';
 
 const initialState = {
-  loggingIn: true,
+  loggingIn: false,
   fetchingFriends: false,
   savingFriend: false,
   updatingFriend: false,
@@ -26,6 +28,10 @@ const initialState = {
 
 export const friendsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOG_OUT:
+      return { ...state, loggedIn: false };
+    case LOAD_TOKEN:
+      return { ...state, loggedIn: true, token: action.payload };
     case LOGIN:
       return { ...state, fetchingFriends: true };
     case LOGIN_SUCCESS:

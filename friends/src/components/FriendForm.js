@@ -1,4 +1,15 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormInput = styled.input`
+  display: block;
+`;
 
 const FriendForm = props => {
   const [name, setName] = useState('');
@@ -7,7 +18,7 @@ const FriendForm = props => {
   const [gender, setGender] = useState('');
 
   return (
-    <form onSubmit={e => {
+    <Form onSubmit={e => {
       e.preventDefault();
       props.onSubmit({ name, age, email, gender });
       setName('');
@@ -15,28 +26,28 @@ const FriendForm = props => {
       setEmail('');
       setGender('');
     }}>
-      <input
+      <FormInput
         type="text"
         placeholder="name"
         name="name"
         onChange={e => setName(e.target.value)}
         value={name}
       />
-      <input
+      <FormInput
         type="text"
         placeholder="age"
         name="age"
         onChange={e => setAge(e.target.value)}
         value={age}
       />
-      <input
+      <FormInput
         type="text"
         placeholder="email"
         name="email"
         onChange={e => setEmail(e.target.value)}
         value={email}
       />
-      <input
+      <FormInput
         type="text"
         placeholder="gender"
         name="gender"
@@ -44,7 +55,7 @@ const FriendForm = props => {
         value={gender}
       />
       <button type="submit">Add Friend</button>
-    </form>
+    </Form>
   );
 };
 
