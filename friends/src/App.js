@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LoginForm from './components/LoginForm';
 import './App.css';
 import { connect } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import {
   fetchFriends,
   saveFriend,
@@ -9,8 +10,17 @@ import {
   deleteFriend,
   login
 } from './actions';
-import Friend from './components/Friend';
-import FriendForm from './components/FriendForm';
+import FriendsList from './components/FriendsList';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    localStorage.getItem('token') ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to="/login" />
+    )
+  )} />
+);
 
 export const App = props => {
   const [initialized, setInitialized] = useState(false);
@@ -20,32 +30,45 @@ export const App = props => {
       setInitialized(true);
     }
   });
-  if(!props.loggedIn) {
-    return (
-      <div className="App">
-        <h1>Not Logged In :(</h1>
-        <LoginForm onSubmit={props.login}/>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <h1>Logged In :)</h1>
-        { props.fetchingFriends && <h3>Loading Friends...</h3> }
-        <>
-        { props.friends.map(f => <Friend friend={f} key={f.id}/>) }
-        </>
-        <FriendForm onSubmit={props.saveFriend} />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Route
+        path="/login"
+        render={() => (
+          <>
+            <h1>Not Logged In :(</h1>
+            <LoginForm onSubmit={props.login} />
+          </>
+        )}
+      />
+      <PrivateRoute
+        path="/friends"
+        component={FriendsList}
+        friends={props.friends}
+        fetchingFriends={props.fetchingFriends}
+        saveFriend={props.saveFriend}
+      />
+      <Route path="/logout" render={() => {
+        localStorage.clear();
+        return <Redirect to="/" />;
+      }} />
+      <Route
+        exact
+        path="/"
+        render={() =>
+          props.loggedIn ? <Redirect to="/friends" /> : <Redirect to="/login" />
+        }
+      />
+    </div>
+  );
 };
+
 
 const mapStateToProps = state => ({
   ...state.friends
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {
     fetchFriends,
@@ -54,4 +77,4 @@ export default connect(
     deleteFriend,
     login
   }
-)(App);
+)(App));

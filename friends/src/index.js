@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import rootReducer from './reducers';
 import './index.css';
 import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,7 +18,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

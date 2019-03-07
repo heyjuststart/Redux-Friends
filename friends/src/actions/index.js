@@ -14,15 +14,17 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const login = credentials => dispatch => {
   dispatch({ type: LOGIN });
-  axios.post('http://localhost:5000/api/login', credentials).then(res => {
-    console.log(res);
-    dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
-  });
+  return axios
+    .post('http://localhost:5000/api/login', credentials)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+    });
 };
 
 export const fetchFriends = () => (dispatch, getState) => {
   dispatch({ type: FETCH_FRIENDS });
-  axios
+  return axios
     .get('http://localhost:5000/api/friends', {
       headers: { authorization: getState().friends.token }
     })
@@ -34,19 +36,17 @@ export const fetchFriends = () => (dispatch, getState) => {
 
 export const saveFriend = friend => (dispatch, getState) => {
   dispatch({ type: SAVE_FRIEND });
-  axios
-    .post(
-      'http://localhost:5000/api/friends',
-      friend,
-      { headers: { authorization: getState().friends.token } }
-    )
+  return axios
+    .post('http://localhost:5000/api/friends', friend, {
+      headers: { authorization: getState().friends.token }
+    })
     .then(({ data }) => dispatch({ type: SAVE_FRIEND_SUCCESS, payload: data }))
     .catch(err => dispatch({ type: REQUEST_ERROR, payload: err }));
 };
 
 export const updateFriend = friend => dispatch => {
   dispatch({ type: UPDATE_FRIEND });
-  axios
+  return axios
     .put(`http://localhost:5000/friends/${friend.id}`, friend)
     .then(({ data }) =>
       dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: data })
@@ -56,7 +56,7 @@ export const updateFriend = friend => dispatch => {
 
 export const deleteFriend = friend => dispatch => {
   dispatch({ type: DELETE_FRIEND });
-  axios
+  return axios
     .delete(`http://localhost:5000/friends/${friend.id}`)
     .then(({ data }) =>
       dispatch({ type: DELETE_FRIEND_SUCCESS, payload: data })
