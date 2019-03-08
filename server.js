@@ -4,9 +4,9 @@ const cors = require('cors');
 const port = 5000;
 const app = express();
 const token =
-  'eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ';
+  'esfeyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NUIhkufemQifQ';
 
-let nextId = 6;
+let nextId = 7;
 
 let friends = [
   {
